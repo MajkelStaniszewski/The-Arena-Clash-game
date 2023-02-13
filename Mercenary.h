@@ -1,0 +1,53 @@
+#ifndef Mercenary_H
+#define Mercenary_H
+
+#include "Charakter.h"
+#include "RPGDices.h"
+#include "TilePoint.h"
+#include "gui.h"
+#include "Tile.h"
+#include "GameMap.h"
+#include <QVector>
+/*!
+ * \brief Klasa Mercenary dziedzicząca po klasie Charakter.
+ * \details Klasa Mercenary dziedziczy po klasie Charakter, także może zostać użyta do umieszczenia na mapie.
+ */
+class Mercenary : public Charakter
+{
+public:
+    /*!
+     * \brief Metoda określająca sposób atakowania klasy Mercenary.
+     * \param enemy - Wskaźnik na cel postaci.
+     */
+    void attack(Charakter* enemy);
+    /*!
+     * \brief Metoda, która określa sposób poruszania się klasy Mercenary.
+     * \return Pozycje, do której chce poruszyć się postać.
+     */
+    TilePoint move();
+    /*!
+     * \brief Konstruktor klasy Mercenary
+     * \param health - Poziom życia postaci.
+     * \param BA - Bonus do ataku.
+     * \param armor - Pancerz postaci.
+     * \param dices - Wskaźnik do klasy Dice
+     * \param tp -  Pozycja postaci na mapie.
+     * \param gui - Wskaźnik do klasy GUI.
+     */
+    Mercenary(int health, int BA, int armor, Dices* dices, TilePoint tp, GUI* gui, GameMap* map):
+        Charakter(health, BA, armor, dices, tp, gui)
+    {
+        _gui = gui;
+        _map = map;
+    };
+
+
+
+private:
+    GUI* _gui;
+    GameMap* _map;
+    bool isInMap(TilePoint tile);
+
+};
+
+#endif // Mercenary_H
